@@ -483,17 +483,19 @@ static int const RCTVideoUnset = -1;
         
         if ([_playerItem.asset tracksWithMediaType:AVMediaTypeVideo].count > 0) {
           AVAssetTrack *videoTrack = [[_playerItem.asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
-          width = [NSNumber numberWithFloat:videoTrack.naturalSize.width];
-          height = [NSNumber numberWithFloat:videoTrack.naturalSize.height];
           CGAffineTransform preferredTransform = [videoTrack preferredTransform];
           
           if ((videoTrack.naturalSize.width == preferredTransform.tx
                && videoTrack.naturalSize.height == preferredTransform.ty)
-              || (preferredTransform.tx == 0 && preferredTransform.ty == 0))
+              || (preferredTransform.b == 0 && preferredTransform.c == 0))
           {
             orientation = @"landscape";
+            width = [NSNumber numberWithFloat:videoTrack.naturalSize.width];
+            height = [NSNumber numberWithFloat:videoTrack.naturalSize.height];
           } else {
             orientation = @"portrait";
+            width = [NSNumber numberWithFloat:videoTrack.naturalSize.height];
+            height = [NSNumber numberWithFloat:videoTrack.naturalSize.width];
           }
         }
         
