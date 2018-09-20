@@ -514,9 +514,11 @@ class ReactExoplayerView extends FrameLayout implements
             setSelectedAudioTrack(audioTrackType, audioTrackValue);
             setSelectedTextTrack(textTrackType, textTrackValue);
             Format videoFormat = player.getVideoFormat();
+
             int width = videoFormat != null ? videoFormat.width : 0;
             int height = videoFormat != null ? videoFormat.height : 0;
-            eventEmitter.load(player.getDuration(), player.getCurrentPosition(), width, height,
+            int rotationDegrees = videoFormat != null ? videoFormat.rotationDegrees : 0;
+            eventEmitter.load(player.getDuration(), player.getCurrentPosition(), width, height, rotationDegrees,
                     getAudioTrackInfo(), getTextTrackInfo());
         }
     }

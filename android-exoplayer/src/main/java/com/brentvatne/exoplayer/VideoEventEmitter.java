@@ -108,6 +108,7 @@ class VideoEventEmitter {
     private static final String EVENT_PROP_NATURAL_SIZE = "naturalSize";
     private static final String EVENT_PROP_WIDTH = "width";
     private static final String EVENT_PROP_HEIGHT = "height";
+    private static final String EVENT_PROP_ROTATION_DEGREES = "rotationDegrees";
     private static final String EVENT_PROP_ORIENTATION = "orientation";
     private static final String EVENT_PROP_AUDIO_TRACKS = "audioTracks";
     private static final String EVENT_PROP_TEXT_TRACKS = "textTracks";
@@ -130,7 +131,7 @@ class VideoEventEmitter {
         receiveEvent(EVENT_LOAD_START, null);
     }
 
-    void load(double duration, double currentPosition, int videoWidth, int videoHeight,
+    void load(double duration, double currentPosition, int videoWidth, int videoHeight, int rotationDegrees,
               WritableArray audioTracks, WritableArray textTracks) {
         WritableMap event = Arguments.createMap();
         event.putDouble(EVENT_PROP_DURATION, duration / 1000D);
@@ -139,6 +140,7 @@ class VideoEventEmitter {
         WritableMap naturalSize = Arguments.createMap();
         naturalSize.putInt(EVENT_PROP_WIDTH, videoWidth);
         naturalSize.putInt(EVENT_PROP_HEIGHT, videoHeight);
+        naturalSize.putInt(EVENT_PROP_ROTATION_DEGREES, rotationDegrees);
         if (videoWidth > videoHeight) {
             naturalSize.putString(EVENT_PROP_ORIENTATION, "landscape");
         } else {
